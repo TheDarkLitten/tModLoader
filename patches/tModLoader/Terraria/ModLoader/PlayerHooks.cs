@@ -1023,24 +1023,7 @@ namespace Terraria.ModLoader
 
 		private static HookList HookModifyDrawHeadLayers = AddHook<Action<List<PlayerHeadLayer>>>(p => p.ModifyDrawHeadLayers);
 
-		public static List<PlayerHeadLayer> GetDrawHeadLayers(Player drawPlayer) {
-			//This is based on:
-			//	Terraria.Graphics.Renderers.LegacyPlayerRenderer.DrawPlayerHead
-			//	and
-			//	Terraria.GameContent.PlayerHeadDrawRenderTargetContent.DrawTheContent
-
-			var layers = new List<PlayerHeadLayer> {
-				PlayerHeadLayer.BackHelmet,
-				PlayerHeadLayer.FaceSkin,
-				PlayerHeadLayer.DrawArmorWithFullHair,
-				PlayerHeadLayer.HelmetHair,
-				PlayerHeadLayer.JungleRose,
-				PlayerHeadLayer.TallHats,
-				PlayerHeadLayer.NormalHats,
-				PlayerHeadLayer.JustHair,
-				PlayerHeadLayer.FaceAcc
-			};
-
+		public static void ModifyDrawHeadLayers(Player drawPlayer, List<PlayerHeadLayer> layers) {
 			foreach (PlayerHeadLayer layer in layers) {
 				layer.visible = true;
 			}
@@ -1048,8 +1031,6 @@ namespace Terraria.ModLoader
 			foreach (int index in HookModifyDrawHeadLayers.arr) {
 				drawPlayer.modPlayers[index].ModifyDrawHeadLayers(layers);
 			}
-
-			return layers;
 		}
 
 		private static HookList HookModifyScreenPosition = AddHook<Action>(p => p.ModifyScreenPosition);

@@ -1,34 +1,25 @@
 --- src/Terraria/Terraria/GameContent/PlayerHeadDrawRenderTargetContent.cs
 +++ src/tModLoader/Terraria/GameContent/PlayerHeadDrawRenderTargetContent.cs
-@@ -1,6 +_,7 @@
+@@ -1,3 +_,4 @@
++using Microsoft.Xna.Framework;
  using Microsoft.Xna.Framework.Graphics;
  using System.Collections.Generic;
  using Terraria.DataStructures;
-+using Terraria.ModLoader;
+@@ -17,6 +_,7 @@
  
- namespace Terraria.GameContent
- {
-@@ -22,6 +_,8 @@
- 				_gore.Clear();
- 				PlayerDrawHeadSet drawinfo = default(PlayerDrawHeadSet);
- 				drawinfo.BoringSetup(_player, _drawData, _dust, _gore, width / 2, height / 2, 1f, 1f);
-+
+ 		internal override void DrawTheContent(SpriteBatch spriteBatch) {
+ 			if (_player != null) {
 +				/*
- 				PlayerDrawHeadLayers.DrawPlayer_00_BackHelmet(ref drawinfo);
- 				PlayerDrawHeadLayers.DrawPlayer_01_FaceSkin(ref drawinfo);
- 				PlayerDrawHeadLayers.DrawPlayer_02_DrawArmorWithFullHair(ref drawinfo);
-@@ -31,6 +_,14 @@
- 				PlayerDrawHeadLayers.DrawPlayer_06_NormalHats(ref drawinfo);
+ 				_drawData.Clear();
+ 				_dust.Clear();
+ 				_gore.Clear();
+@@ -32,6 +_,9 @@
  				PlayerDrawHeadLayers.DrawPlayer_07_JustHair(ref drawinfo);
  				PlayerDrawHeadLayers.DrawPlayer_08_FaceAcc(ref drawinfo);
+ 				PlayerDrawHeadLayers.DrawPlayer_RenderAllLayers(ref drawinfo);
 +				*/
 +
-+				var layers = PlayerHooks.GetDrawHeadLayers(_player);
-+
-+				foreach (var layer in layers) {
-+					layer.Draw(ref drawinfo);
-+				}
-+
- 				PlayerDrawHeadLayers.DrawPlayer_RenderAllLayers(ref drawinfo);
++				Main.PlayerRenderer.DrawPlayerHead(Main.Camera, _player, new Vector2(width * 0.5f, height * 0.5f));
  			}
  		}
+ 	}

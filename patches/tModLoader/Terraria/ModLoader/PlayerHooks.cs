@@ -970,55 +970,14 @@ namespace Terraria.ModLoader
 
 		private static HookList HookModifyDrawLayers = AddHook<Action<List<PlayerLayer>>>(p => p.ModifyDrawLayers);
 
-		public static List<PlayerLayer> GetDrawLayers(Player drawPlayer) {
-			List<PlayerLayer> layers = new List<PlayerLayer> {
-				PlayerLayer.HairBack,
-				PlayerLayer.MountBack,
-				PlayerLayer.MiscEffectsBack,
-				PlayerLayer.BackAcc,
-				PlayerLayer.Wings,
-				PlayerLayer.BalloonAcc,
-				PlayerLayer.Skin
-			};
-			if (drawPlayer.wearsRobe) {
-				layers.Add(PlayerLayer.ShoeAcc);
-				layers.Add(PlayerLayer.Legs);
-			}
-			else {
-				layers.Add(PlayerLayer.Legs);
-				layers.Add(PlayerLayer.ShoeAcc);
-			}
-			layers.Add(PlayerLayer.Body);
-			layers.Add(PlayerLayer.HandOffAcc);
-			layers.Add(PlayerLayer.WaistAcc);
-			layers.Add(PlayerLayer.NeckAcc);
-			layers.Add(PlayerLayer.Face);
-			layers.Add(PlayerLayer.Hair);
-			layers.Add(PlayerLayer.Head);
-			layers.Add(PlayerLayer.FaceAcc);
-			if (drawPlayer.mount.Cart) {
-				layers.Add(PlayerLayer.ShieldAcc);
-				layers.Add(PlayerLayer.MountFront);
-			}
-			else {
-				layers.Add(PlayerLayer.MountFront);
-				layers.Add(PlayerLayer.ShieldAcc);
-			}
-			layers.Add(PlayerLayer.SolarShield);
-			layers.Add(PlayerLayer.HeldProjBack);
-			layers.Add(PlayerLayer.HeldItem);
-			layers.Add(PlayerLayer.Arms);
-			layers.Add(PlayerLayer.HandOnAcc);
-			layers.Add(PlayerLayer.HeldProjFront);
-			layers.Add(PlayerLayer.FrontAcc);
-			layers.Add(PlayerLayer.MiscEffectsFront);
+		public static void ModifyDrawLayers(Player drawPlayer, List<PlayerLayer> layers) {
 			foreach (PlayerLayer layer in layers) {
 				layer.visible = true;
 			}
+
 			foreach (int index in HookModifyDrawLayers.arr) {
 				drawPlayer.modPlayers[index].ModifyDrawLayers(layers);
 			}
-			return layers;
 		}
 
 		private static HookList HookModifyDrawHeadLayers = AddHook<Action<List<PlayerHeadLayer>>>(p => p.ModifyDrawHeadLayers);

@@ -86,7 +86,7 @@ namespace Terraria.ModLoader.Default.Developer
 				if (player.head == _headSlot) {
 					PowerRanger_Head.GlowLayer.visible = true;
 
-					i = layers.FindIndex(x => x.mod.Equals("Terraria") && x.Name.Equals("Head"));
+					i = layers.FindIndex(x => x.Mod.Equals("Terraria") && x.Name.Equals("Head"));
 					if (i != -1) {
 						if (ShaderStrength > 0f) {
 							PowerRanger_Head.ShaderLayer.visible = true;
@@ -99,14 +99,14 @@ namespace Terraria.ModLoader.Default.Developer
 				if (player.body == _bodySlot) {
 					if (ShaderStrength > 0f) {
 						PowerRanger_Body.ShaderLayer.visible = true;
-						i = layers.FindIndex(x => x.mod.Equals("Terraria") && x.Name.Equals("Body"));
+						i = layers.FindIndex(x => x.Mod.Equals("Terraria") && x.Name.Equals("Body"));
 						if (i != -1) {
 							layers.Insert(i - 1, PowerRanger_Body.ShaderLayer);
 						}
 					}
 
 					PowerRanger_Body.GlowLayer.visible = true;
-					i = layers.FindIndex(x => x.mod.Equals("Terraria") && x.Name.Equals("Arms"));
+					i = layers.FindIndex(x => x.Mod.Equals("Terraria") && x.Name.Equals("Arms"));
 					if (i != -1) {
 						layers.Insert(i + 1, PowerRanger_Body.GlowLayer);
 					}
@@ -115,7 +115,7 @@ namespace Terraria.ModLoader.Default.Developer
 				if (player.legs == _legSlot) {
 					PowerRanger_Legs.GlowLayer.visible = true;
 
-					i = layers.FindIndex(x => x.mod.Equals("Terraria") && x.Name.Equals("Legs"));
+					i = layers.FindIndex(x => x.Mod.Equals("Terraria") && x.Name.Equals("Legs"));
 					if (i != -1) {
 						if (ShaderStrength > 0f) {
 							PowerRanger_Legs.ShaderLayer.visible = true;
@@ -169,7 +169,7 @@ namespace Terraria.ModLoader.Default.Developer
 			batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, rasterizerState, null, Main.GameViewMatrix.TransformationMatrix);
 		}
 
-		public static DrawDataInfo GetHeadDrawDataInfo(PlayerDrawInfo drawInfo, Texture2D texture) {
+		public static DrawDataInfo GetHeadDrawDataInfo(PlayerDrawSet drawInfo, Texture2D texture) {
 			Player drawPlayer = drawInfo.drawPlayer;
 			Vector2 pos = new Vector2(
 							  (int)(drawInfo.position.X + drawPlayer.width / 2f - drawPlayer.bodyFrame.Width / 2f - Main.screenPosition.X),
@@ -186,7 +186,7 @@ namespace Terraria.ModLoader.Default.Developer
 			};
 		}
 
-		public static DrawDataInfo GetBodyDrawDataInfo(PlayerDrawInfo drawInfo, Texture2D texture) {
+		public static DrawDataInfo GetBodyDrawDataInfo(PlayerDrawSet drawInfo, Texture2D texture) {
 			Player drawPlayer = drawInfo.drawPlayer;
 			Vector2 pos = new Vector2(
 							  (int)(drawInfo.position.X - Main.screenPosition.X - drawPlayer.bodyFrame.Width / 2f + drawPlayer.width / 2f),
@@ -203,7 +203,7 @@ namespace Terraria.ModLoader.Default.Developer
 			};
 		}
 
-		public static DrawDataInfo GetLegDrawDataInfo(PlayerDrawInfo drawInfo, Texture2D texture) {
+		public static DrawDataInfo GetLegDrawDataInfo(PlayerDrawSet drawInfo, Texture2D texture) {
 			Player drawPlayer = drawInfo.drawPlayer;
 			Vector2 pos = new Vector2(
 							  (int)(drawInfo.position.X - Main.screenPosition.X - drawPlayer.legFrame.Width / 2f + drawPlayer.width / 2f),
@@ -220,8 +220,8 @@ namespace Terraria.ModLoader.Default.Developer
 			};
 		}
 
-		public static PlayerLayer CreateShaderLayer(string name, PlayerLayer parent, Func<PlayerDrawInfo, DrawDataInfo> getDataFunc) {
-			return new PlayerLayer("ModLoaderMod", name, parent, (drawInfo) => {
+		public static PlayerLayer CreateShaderLayer(string name, PlayerLayer parent, Func<PlayerDrawSet, DrawDataInfo> getDataFunc) {
+			return new PlayerLayer("ModLoaderMod", name, parent, (ref PlayerDrawSet drawInfo) => {
 				if (drawInfo.shadow != 0f || drawInfo.drawPlayer.invis) {
 					return;
 				}
@@ -263,8 +263,8 @@ namespace Terraria.ModLoader.Default.Developer
 			});
 		}
 
-		public static PlayerLayer CreateGlowLayer(string name, PlayerLayer parent, Func<PlayerDrawInfo, DrawDataInfo> getDataFunc) {
-			return new PlayerLayer("ModLoaderMod", name, parent, (drawInfo) => {
+		public static PlayerLayer CreateGlowLayer(string name, PlayerLayer parent, Func<PlayerDrawSet, DrawDataInfo> getDataFunc) {
+			return new PlayerLayer("ModLoaderMod", name, parent, (ref PlayerDrawSet drawInfo) => {
 				if (drawInfo.shadow != 0f || drawInfo.drawPlayer.invis) {
 					return;
 				}
@@ -330,7 +330,7 @@ namespace Terraria.ModLoader.Default.Developer
 			return GetHeadDrawDataInfo(drawInfo, _glowTexture);
 		});
 
-		public static PlayerLayer ShaderLayer = CreateShaderLayer("AndromedonHeadShader", PlayerLayer.Body, drawInfo => {
+		public static PlayerLayer ShaderLayer = CreateShaderLayer("AndromedonHeadShader", PlayerLayer.Torso, drawInfo => {
 			_shaderTexture = _shaderTexture ?? ModLoaderMod.ReadTexture($"Developer.PowerRanger_Head_Head_Shader");
 			return GetHeadDrawDataInfo(drawInfo, _shaderTexture);
 		});
@@ -348,12 +348,12 @@ namespace Terraria.ModLoader.Default.Developer
 		private static Texture2D _glowTexture;
 		private static Texture2D _shaderTexture;
 
-		public static PlayerLayer GlowLayer = CreateGlowLayer("AndromedonBodyGlow", PlayerLayer.Body, drawInfo => {
+		public static PlayerLayer GlowLayer = CreateGlowLayer("AndromedonBodyGlow", PlayerLayer.Torso, drawInfo => {
 			_glowTexture = _glowTexture ?? ModLoaderMod.ReadTexture($"Developer.PowerRanger_Body_Body_Glow");
 			return GetBodyDrawDataInfo(drawInfo, _glowTexture);
 		});
 
-		public static PlayerLayer ShaderLayer = CreateShaderLayer("AndromedonBodyShader", PlayerLayer.Body, drawInfo => {
+		public static PlayerLayer ShaderLayer = CreateShaderLayer("AndromedonBodyShader", PlayerLayer.Torso, drawInfo => {
 			_shaderTexture = _shaderTexture ?? ModLoaderMod.ReadTexture($"Developer.PowerRanger_Body_Body_Shader");
 			return GetBodyDrawDataInfo(drawInfo, _shaderTexture);
 		});
@@ -376,7 +376,7 @@ namespace Terraria.ModLoader.Default.Developer
 			return GetLegDrawDataInfo(drawInfo, _glowTexture);
 		});
 
-		public static PlayerLayer ShaderLayer = CreateShaderLayer("AndromedonLegsShader", PlayerLayer.Body, drawInfo => {
+		public static PlayerLayer ShaderLayer = CreateShaderLayer("AndromedonLegsShader", PlayerLayer.Torso, drawInfo => {
 			_shaderTexture = _shaderTexture ?? ModLoaderMod.ReadTexture($"Developer.PowerRanger_Legs_Legs_Shader");
 			return GetLegDrawDataInfo(drawInfo, _shaderTexture);
 		});

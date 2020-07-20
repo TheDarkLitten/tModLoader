@@ -757,14 +757,14 @@ namespace Terraria.ModLoader
 		/// <param name="b"></param>
 		/// <param name="a"></param>
 		/// <param name="fullBright"></param>
-		public virtual void DrawEffects(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright) {
+		public virtual void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright) {
 		}
 
 		/// <summary>
 		/// Allows you to modify the drawing parameters of the player before drawing begins.
 		/// </summary>
 		/// <param name="drawInfo"></param>
-		public virtual void ModifyDrawInfo(ref PlayerDrawInfo drawInfo) {
+		public virtual void ModifyDrawInfo(ref PlayerDrawSet drawInfo) {
 		}
 
 		/// <summary>

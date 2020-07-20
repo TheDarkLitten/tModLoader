@@ -20,7 +20,7 @@ namespace Terraria.ModLoader.Default.Developer.Jofairden
 			return GetLegDrawDataInfo(drawInfo, _glowTexture);
 		});
 
-		public static PlayerLayer ShaderLayer = CreateShaderLayer("AndromedonLegsShader", PlayerLayer.Body, drawInfo => {
+		public static PlayerLayer ShaderLayer = CreateShaderLayer("AndromedonLegsShader", PlayerLayer.Torso, drawInfo => {
 			_shaderTexture ??= ModLoaderMod.ReadTexture($"Developer.PowerRanger_Legs_Legs_Shader");
 			return GetLegDrawDataInfo(drawInfo, _shaderTexture);
 		});

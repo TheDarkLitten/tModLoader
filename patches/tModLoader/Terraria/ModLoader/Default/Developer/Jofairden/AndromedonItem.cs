@@ -35,7 +35,7 @@ namespace Terraria.ModLoader.Default.Developer.Jofairden
 			batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, rasterizerState, null, Main.GameViewMatrix.TransformationMatrix);
 		}
 
-		public static DrawDataInfo GetHeadDrawDataInfo(PlayerDrawInfo drawInfo, Texture2D texture) {
+		public static DrawDataInfo GetHeadDrawDataInfo(PlayerDrawSet drawInfo, Texture2D texture) {
 			Player drawPlayer = drawInfo.drawPlayer;
 			Vector2 pos = new Vector2(
 							  (int)(drawInfo.position.X + drawPlayer.width / 2f - drawPlayer.bodyFrame.Width / 2f - Main.screenPosition.X),
@@ -52,7 +52,7 @@ namespace Terraria.ModLoader.Default.Developer.Jofairden
 			};
 		}
 
-		public static DrawDataInfo GetBodyDrawDataInfo(PlayerDrawInfo drawInfo, Texture2D texture) {
+		public static DrawDataInfo GetBodyDrawDataInfo(PlayerDrawSet drawInfo, Texture2D texture) {
 			Player drawPlayer = drawInfo.drawPlayer;
 			Vector2 pos = new Vector2(
 							  (int)(drawInfo.position.X - Main.screenPosition.X - drawPlayer.bodyFrame.Width / 2f + drawPlayer.width / 2f),
@@ -69,7 +69,7 @@ namespace Terraria.ModLoader.Default.Developer.Jofairden
 			};
 		}
 
-		public static DrawDataInfo GetLegDrawDataInfo(PlayerDrawInfo drawInfo, Texture2D texture) {
+		public static DrawDataInfo GetLegDrawDataInfo(PlayerDrawSet drawInfo, Texture2D texture) {
 			Player drawPlayer = drawInfo.drawPlayer;
 			Vector2 pos = new Vector2(
 							  (int)(drawInfo.position.X - Main.screenPosition.X - drawPlayer.legFrame.Width / 2f + drawPlayer.width / 2f),
@@ -86,8 +86,8 @@ namespace Terraria.ModLoader.Default.Developer.Jofairden
 			};
 		}
 
-		public static PlayerLayer CreateShaderLayer(string name, PlayerLayer parent, Func<PlayerDrawInfo, DrawDataInfo> getDataFunc) {
-			return new PlayerLayer("ModLoaderMod", name, parent, (drawInfo) => {
+		public static PlayerLayer CreateShaderLayer(string name, PlayerLayer parent, Func<PlayerDrawSet, DrawDataInfo> getDataFunc) {
+			return new PlayerLayer("ModLoaderMod", name, parent, (ref PlayerDrawSet drawInfo) => {
 				if (drawInfo.shadow != 0f || drawInfo.drawPlayer.invis) {
 					return;
 				}
@@ -129,8 +129,8 @@ namespace Terraria.ModLoader.Default.Developer.Jofairden
 			});
 		}
 
-		public static PlayerLayer CreateGlowLayer(string name, PlayerLayer parent, Func<PlayerDrawInfo, DrawDataInfo> getDataFunc) {
-			return new PlayerLayer("ModLoaderMod", name, parent, (drawInfo) => {
+		public static PlayerLayer CreateGlowLayer(string name, PlayerLayer parent, Func<PlayerDrawSet, DrawDataInfo> getDataFunc) {
+			return new PlayerLayer("ModLoaderMod", name, parent, (ref PlayerDrawSet drawInfo) => {
 				if (drawInfo.shadow != 0f || drawInfo.drawPlayer.invis) {
 					return;
 				}

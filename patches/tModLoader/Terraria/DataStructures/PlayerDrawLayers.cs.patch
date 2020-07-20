@@ -1,5 +1,15 @@
 --- src/Terraria/Terraria/DataStructures/PlayerDrawLayers.cs
 +++ src/tModLoader/Terraria/DataStructures/PlayerDrawLayers.cs
+@@ -11,7 +_,8 @@
+ 
+ namespace Terraria.DataStructures
+ {
++	//Made this internal, so that modders don't confuse this with Terraria.ModLoader.PlayerLayer --Mirsario.
+-	public static class PlayerDrawLayers
++	internal static class PlayerDrawLayers
+ 	{
+ 		public static void DrawPlayer_extra_TorsoPlus(ref PlayerDrawSet drawinfo) {
+ 			drawinfo.Position.Y += drawinfo.torsoOffset;
 @@ -1766,7 +_,7 @@
  		}
  

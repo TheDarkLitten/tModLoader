@@ -81,7 +81,7 @@ namespace Terraria.ModLoader.Default.Developer.Jofairden
 				if (player.head == _headSlot) {
 					PowerRanger_Head.GlowLayer.visible = true;
 
-					i = layers.FindIndex(x => x.mod.Equals("Terraria") && x.Name.Equals("Head"));
+					i = layers.FindIndex(x => x.Mod.Equals("Terraria") && x.Name.Equals("Head"));
 					if (i != -1) {
 						if (ShaderStrength > 0f) {
 							PowerRanger_Head.ShaderLayer.visible = true;
@@ -94,14 +94,14 @@ namespace Terraria.ModLoader.Default.Developer.Jofairden
 				if (player.body == _bodySlot) {
 					if (ShaderStrength > 0f) {
 						PowerRanger_Body.ShaderLayer.visible = true;
-						i = layers.FindIndex(x => x.mod.Equals("Terraria") && x.Name.Equals("Body"));
+						i = layers.FindIndex(x => x.Mod.Equals("Terraria") && x.Name.Equals("Body"));
 						if (i != -1) {
 							layers.Insert(i - 1, PowerRanger_Body.ShaderLayer);
 						}
 					}
 
 					PowerRanger_Body.GlowLayer.visible = true;
-					i = layers.FindIndex(x => x.mod.Equals("Terraria") && x.Name.Equals("Arms"));
+					i = layers.FindIndex(x => x.Mod.Equals("Terraria") && x.Name.Equals("Arms"));
 					if (i != -1) {
 						layers.Insert(i + 1, PowerRanger_Body.GlowLayer);
 					}
@@ -110,7 +110,7 @@ namespace Terraria.ModLoader.Default.Developer.Jofairden
 				if (player.legs == _legSlot) {
 					PowerRanger_Legs.GlowLayer.visible = true;
 
-					i = layers.FindIndex(x => x.mod.Equals("Terraria") && x.Name.Equals("Legs"));
+					i = layers.FindIndex(x => x.Mod.Equals("Terraria") && x.Name.Equals("Legs"));
 					if (i != -1) {
 						if (ShaderStrength > 0f) {
 							PowerRanger_Legs.ShaderLayer.visible = true;

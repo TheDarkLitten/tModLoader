@@ -30,7 +30,7 @@ namespace Terraria.ModLoader.Default.Developer.Jofairden
 			return GetHeadDrawDataInfo(drawInfo, _glowTexture);
 		});
 
-		public static PlayerLayer ShaderLayer = CreateShaderLayer("AndromedonHeadShader", PlayerLayer.Body, drawInfo => {
+		public static PlayerLayer ShaderLayer = CreateShaderLayer("AndromedonHeadShader", PlayerLayer.Torso, drawInfo => {
 			_shaderTexture ??= ModLoaderMod.ReadTexture($"Developer.PowerRanger_Head_Head_Shader");
 			return GetHeadDrawDataInfo(drawInfo, _shaderTexture);
 		});

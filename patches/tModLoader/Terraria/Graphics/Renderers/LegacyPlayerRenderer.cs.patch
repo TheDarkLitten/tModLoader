@@ -8,22 +8,33 @@
  
  namespace Terraria.Graphics.Renderers
  {
-@@ -35,6 +_,8 @@
+@@ -35,15 +_,25 @@
  			_gore.Clear();
  			PlayerDrawHeadSet drawinfo = default(PlayerDrawHeadSet);
  			drawinfo.BoringSetup(drawPlayer, _drawData, _dust, _gore, position.X, position.Y, alpha, scale);
+-			PlayerDrawHeadLayers.DrawPlayer_00_BackHelmet(ref drawinfo);
+-			PlayerDrawHeadLayers.DrawPlayer_01_FaceSkin(ref drawinfo);
+-			PlayerDrawHeadLayers.DrawPlayer_02_DrawArmorWithFullHair(ref drawinfo);
+-			PlayerDrawHeadLayers.DrawPlayer_03_HelmetHair(ref drawinfo);
+-			PlayerDrawHeadLayers.DrawPlayer_04_JungleRose(ref drawinfo);
+-			PlayerDrawHeadLayers.DrawPlayer_05_TallHats(ref drawinfo);
+-			PlayerDrawHeadLayers.DrawPlayer_06_NormalHats(ref drawinfo);
+-			PlayerDrawHeadLayers.DrawPlayer_07_JustHair(ref drawinfo);
+-			PlayerDrawHeadLayers.DrawPlayer_08_FaceAcc(ref drawinfo);
 +
-+			/*
- 			PlayerDrawHeadLayers.DrawPlayer_00_BackHelmet(ref drawinfo);
- 			PlayerDrawHeadLayers.DrawPlayer_01_FaceSkin(ref drawinfo);
- 			PlayerDrawHeadLayers.DrawPlayer_02_DrawArmorWithFullHair(ref drawinfo);
-@@ -44,6 +_,14 @@
- 			PlayerDrawHeadLayers.DrawPlayer_06_NormalHats(ref drawinfo);
- 			PlayerDrawHeadLayers.DrawPlayer_07_JustHair(ref drawinfo);
- 			PlayerDrawHeadLayers.DrawPlayer_08_FaceAcc(ref drawinfo);
-+			*/
++			var layers = new List<PlayerHeadLayer> {
++				PlayerHeadLayer.BackHelmet,
++				PlayerHeadLayer.FaceSkin,
++				PlayerHeadLayer.DrawArmorWithFullHair,
++				PlayerHeadLayer.HelmetHair,
++				PlayerHeadLayer.JungleRose,
++				PlayerHeadLayer.TallHats,
++				PlayerHeadLayer.NormalHats,
++				PlayerHeadLayer.JustHair,
++				PlayerHeadLayer.FaceAcc
++			};
 +
-+			var layers = PlayerHooks.GetDrawHeadLayers(drawPlayer);
++			PlayerHooks.ModifyDrawHeadLayers(drawPlayer, layers);
 +
 +			foreach (var layer in layers) {
 +				layer.Draw(ref drawinfo);

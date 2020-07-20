@@ -8,33 +8,22 @@
  
  namespace Terraria.Graphics.Renderers
  {
-@@ -35,15 +_,25 @@
+@@ -35,6 +_,8 @@
  			_gore.Clear();
  			PlayerDrawHeadSet drawinfo = default(PlayerDrawHeadSet);
  			drawinfo.BoringSetup(drawPlayer, _drawData, _dust, _gore, position.X, position.Y, alpha, scale);
--			PlayerDrawHeadLayers.DrawPlayer_00_BackHelmet(ref drawinfo);
--			PlayerDrawHeadLayers.DrawPlayer_01_FaceSkin(ref drawinfo);
--			PlayerDrawHeadLayers.DrawPlayer_02_DrawArmorWithFullHair(ref drawinfo);
--			PlayerDrawHeadLayers.DrawPlayer_03_HelmetHair(ref drawinfo);
--			PlayerDrawHeadLayers.DrawPlayer_04_JungleRose(ref drawinfo);
--			PlayerDrawHeadLayers.DrawPlayer_05_TallHats(ref drawinfo);
--			PlayerDrawHeadLayers.DrawPlayer_06_NormalHats(ref drawinfo);
--			PlayerDrawHeadLayers.DrawPlayer_07_JustHair(ref drawinfo);
--			PlayerDrawHeadLayers.DrawPlayer_08_FaceAcc(ref drawinfo);
 +
-+			var layers = new List<PlayerHeadLayer> {
-+				PlayerHeadLayer.BackHelmet,
-+				PlayerHeadLayer.FaceSkin,
-+				PlayerHeadLayer.DrawArmorWithFullHair,
-+				PlayerHeadLayer.HelmetHair,
-+				PlayerHeadLayer.JungleRose,
-+				PlayerHeadLayer.TallHats,
-+				PlayerHeadLayer.NormalHats,
-+				PlayerHeadLayer.JustHair,
-+				PlayerHeadLayer.FaceAcc
-+			};
++			/*
+ 			PlayerDrawHeadLayers.DrawPlayer_00_BackHelmet(ref drawinfo);
+ 			PlayerDrawHeadLayers.DrawPlayer_01_FaceSkin(ref drawinfo);
+ 			PlayerDrawHeadLayers.DrawPlayer_02_DrawArmorWithFullHair(ref drawinfo);
+@@ -44,6 +_,14 @@
+ 			PlayerDrawHeadLayers.DrawPlayer_06_NormalHats(ref drawinfo);
+ 			PlayerDrawHeadLayers.DrawPlayer_07_JustHair(ref drawinfo);
+ 			PlayerDrawHeadLayers.DrawPlayer_08_FaceAcc(ref drawinfo);
++			*/
 +
-+			PlayerHooks.ModifyDrawHeadLayers(drawPlayer, layers);
++			var layers = PlayerHooks.GetDrawHeadLayers(drawPlayer);
 +
 +			foreach (var layer in layers) {
 +				layer.Draw(ref drawinfo);
@@ -43,150 +32,3 @@
  			CreateOutlines(alpha, scale, borderColor);
  			PlayerDrawHeadLayers.DrawPlayer_RenderAllLayers(ref drawinfo);
  		}
-@@ -116,78 +_,89 @@
- 			_dust.Clear();
- 			_gore.Clear();
- 			drawinfo.BoringSetup(drawPlayer, _drawData, _dust, _gore, position, shadow, rotation, rotationOrigin);
--			PlayerDrawLayers.DrawPlayer_extra_TorsoPlus(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_01_BackHair(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_01_2_JimsCloak(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_01_3_BackHead(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_extra_TorsoMinus(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_02_MountBehindPlayer(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_03_Carpet(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_03_PortableStool(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_extra_TorsoPlus(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_04_ElectrifiedDebuffBack(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_05_ForbiddenSetRing(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_05_2_SafemanSun(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_06_WebbedDebuffBack(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_07_LeinforsHairShampoo(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_extra_TorsoMinus(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_08_Backpacks(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_09_BackAc(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_10_Wings(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_11_Balloons(ref drawinfo);
-+
-+			var layers = new List<PlayerLayer> {
-+				PlayerLayer.TorsoIndent, //{
-+				PlayerLayer.HairBack,
-+				PlayerLayer.JimsCloak,
-+				PlayerLayer.HeadBack,
-+				PlayerLayer.TorsoUnindent, //}
-+				PlayerLayer.MountBack,
-+				PlayerLayer.Carpet,
-+				PlayerLayer.PortableStool,
-+				PlayerLayer.TorsoIndent, //{
-+				PlayerLayer.ElectrifiedDebuffBack,
-+				PlayerLayer.ForbiddenSetRing,
-+				PlayerLayer.SafemanSun,
-+				PlayerLayer.WebbedDebuffBack,
-+				PlayerLayer.LeinforsHairShampoo,
-+				PlayerLayer.TorsoUnindent, //}
-+				PlayerLayer.Backpacks,
-+				PlayerLayer.BackAcc,
-+				PlayerLayer.Wings,
-+				PlayerLayer.BalloonAcc,
-+			};
-+
- 			if (drawinfo.weaponDrawOrder == WeaponDrawOrder.BehindBackArm)
--				PlayerDrawLayers.DrawPlayer_27_HeldItem(ref drawinfo);
-+				layers.Add(PlayerLayer.HeldItem);
- 
--			PlayerDrawLayers.DrawPlayer_12_Skin(ref drawinfo);
-+			layers.Add(PlayerLayer.Skin);
- 			if (drawinfo.drawPlayer.wearsRobe && drawinfo.drawPlayer.body != 166) {
--				PlayerDrawLayers.DrawPlayer_14_Shoes(ref drawinfo);
--				PlayerDrawLayers.DrawPlayer_13_Leggings(ref drawinfo);
-+				layers.Add(PlayerLayer.Shoes);
-+				layers.Add(PlayerLayer.Leggings);
- 			}
- 			else {
--				PlayerDrawLayers.DrawPlayer_13_Leggings(ref drawinfo);
--				PlayerDrawLayers.DrawPlayer_14_Shoes(ref drawinfo);
-+				layers.Add(PlayerLayer.Leggings);
-+				layers.Add(PlayerLayer.Shoes);
- 			}
- 
--			PlayerDrawLayers.DrawPlayer_extra_TorsoPlus(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_15_SkinLongCoat(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_16_ArmorLongCoat(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_17_Torso(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_18_OffhandAcc(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_19_WaistAcc(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_20_NeckAcc(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_21_Head(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_22_FaceAcc(ref drawinfo);
-+			layers.Add(PlayerLayer.TorsoIndent); //{
-+			layers.Add(PlayerLayer.SkinLongCoat);
-+			layers.Add(PlayerLayer.ArmorLongCoat);
-+			layers.Add(PlayerLayer.Torso);
-+			layers.Add(PlayerLayer.OffhandAcc);
-+			layers.Add(PlayerLayer.WaistAcc);
-+			layers.Add(PlayerLayer.NeckAcc);
-+			layers.Add(PlayerLayer.Head);
-+			layers.Add(PlayerLayer.FaceAcc);
- 			if (drawinfo.drawFrontAccInNeckAccLayer) {
--				PlayerDrawLayers.DrawPlayer_extra_TorsoMinus(ref drawinfo);
--				PlayerDrawLayers.DrawPlayer_32_FrontAcc(ref drawinfo);
--				PlayerDrawLayers.DrawPlayer_extra_TorsoPlus(ref drawinfo);
-+				layers.Add(PlayerLayer.TorsoUnindent); //}
-+				layers.Add(PlayerLayer.FrontAcc);
-+				layers.Add(PlayerLayer.TorsoIndent); //{
- 			}
- 
--			PlayerDrawLayers.DrawPlayer_23_MountFront(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_24_Pulley(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_25_Shield(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_extra_MountPlus(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_26_SolarShield(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_extra_MountMinus(ref drawinfo);
-+			layers.Add(PlayerLayer.MountFront);
-+			layers.Add(PlayerLayer.Pulley);
-+			layers.Add(PlayerLayer.Shield);
-+			layers.Add(PlayerLayer.MountIndent); //{
-+			layers.Add(PlayerLayer.SolarShield);
-+			layers.Add(PlayerLayer.MountUnindent); //}
- 			if (drawinfo.weaponDrawOrder == WeaponDrawOrder.BehindFrontArm)
--				PlayerDrawLayers.DrawPlayer_27_HeldItem(ref drawinfo);
-+				layers.Add(PlayerLayer.HeldItem);
- 
--			PlayerDrawLayers.DrawPlayer_28_ArmOverItem(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_29_OnhandAcc(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_30_BladedGlove(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_extra_TorsoMinus(ref drawinfo);
-+			layers.Add(PlayerLayer.ArmOverItem);
-+			layers.Add(PlayerLayer.HandOnAcc);
-+			layers.Add(PlayerLayer.BladedGlove);
-+			layers.Add(PlayerLayer.TorsoUnindent); //}
- 			if (!drawinfo.drawFrontAccInNeckAccLayer)
--				PlayerDrawLayers.DrawPlayer_32_FrontAcc(ref drawinfo);
-+				layers.Add(PlayerLayer.FrontAcc);
- 
- 			if (drawinfo.weaponDrawOrder == WeaponDrawOrder.OverFrontArm)
--				PlayerDrawLayers.DrawPlayer_27_HeldItem(ref drawinfo);
--
--			PlayerDrawLayers.DrawPlayer_31_ProjectileOverArm(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_33_FrozenOrWebbedDebuff(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_34_ElectrifiedDebuffFront(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_35_IceBarrier(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_36_CTG(ref drawinfo);
--			PlayerDrawLayers.DrawPlayer_37_BeetleBuff(ref drawinfo);
-+				layers.Add(PlayerLayer.HeldItem);
-+
-+			layers.Add(PlayerLayer.ProjectileOverArm);
-+			layers.Add(PlayerLayer.FrozenOrWebbedDebuff);
-+			layers.Add(PlayerLayer.ElectrifiedDebuffFront);
-+			layers.Add(PlayerLayer.IceBarrier);
-+			layers.Add(PlayerLayer.CaptureTheGem);
-+			layers.Add(PlayerLayer.BeetleBuff);
-+
-+			PlayerHooks.ModifyDrawLayers(drawPlayer, layers);
-+
-+			foreach (var layer in layers) {
-+				layer.Draw(ref drawinfo);
-+			}
-+
- 			PlayerDrawLayers.DrawPlayer_MakeIntoFirstFractalAfterImage(ref drawinfo);
- 			PlayerDrawLayers.DrawPlayer_TransformDrawData(ref drawinfo);
- 			if (scale != 1f)

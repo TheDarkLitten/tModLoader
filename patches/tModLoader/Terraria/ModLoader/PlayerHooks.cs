@@ -948,20 +948,20 @@ namespace Terraria.ModLoader
 			}
 		}
 
-		private delegate void DelegateDrawEffects(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright);
+		private delegate void DelegateDrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright);
 		private static HookList HookDrawEffects = AddHook<DelegateDrawEffects>(p => p.DrawEffects);
 
-		public static void DrawEffects(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright) {
+		public static void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright) {
 			ModPlayer[] modPlayers = drawInfo.drawPlayer.modPlayers;
 			foreach (int index in HookDrawEffects.arr) {
 				modPlayers[index].DrawEffects(drawInfo, ref r, ref g, ref b, ref a, ref fullBright);
 			}
 		}
 
-		private delegate void DelegateModifyDrawInfo(ref PlayerDrawInfo drawInfo);
+		private delegate void DelegateModifyDrawInfo(ref PlayerDrawSet drawInfo);
 		private static HookList HookModifyDrawInfo = AddHook<DelegateModifyDrawInfo>(p => p.ModifyDrawInfo);
 
-		public static void ModifyDrawInfo(ref PlayerDrawInfo drawInfo) {
+		public static void ModifyDrawInfo(ref PlayerDrawSet drawInfo) {
 			ModPlayer[] modPlayers = drawInfo.drawPlayer.modPlayers;
 			foreach (int index in HookModifyDrawInfo.arr) {
 				modPlayers[index].ModifyDrawInfo(ref drawInfo);
@@ -1024,19 +1024,31 @@ namespace Terraria.ModLoader
 		private static HookList HookModifyDrawHeadLayers = AddHook<Action<List<PlayerHeadLayer>>>(p => p.ModifyDrawHeadLayers);
 
 		public static List<PlayerHeadLayer> GetDrawHeadLayers(Player drawPlayer) {
-			List<PlayerHeadLayer> layers = new List<PlayerHeadLayer> {
-				PlayerHeadLayer.Head,
-				PlayerHeadLayer.Hair,
-				PlayerHeadLayer.AltHair,
-				PlayerHeadLayer.Armor,
+			//This is based on:
+			//	Terraria.Graphics.Renderers.LegacyPlayerRenderer.DrawPlayerHead
+			//	and
+			//	Terraria.GameContent.PlayerHeadDrawRenderTargetContent.DrawTheContent
+
+			var layers = new List<PlayerHeadLayer> {
+				PlayerHeadLayer.BackHelmet,
+				PlayerHeadLayer.FaceSkin,
+				PlayerHeadLayer.DrawArmorWithFullHair,
+				PlayerHeadLayer.HelmetHair,
+				PlayerHeadLayer.JungleRose,
+				PlayerHeadLayer.TallHats,
+				PlayerHeadLayer.NormalHats,
+				PlayerHeadLayer.JustHair,
 				PlayerHeadLayer.FaceAcc
 			};
+
 			foreach (PlayerHeadLayer layer in layers) {
 				layer.visible = true;
 			}
+
 			foreach (int index in HookModifyDrawHeadLayers.arr) {
 				drawPlayer.modPlayers[index].ModifyDrawHeadLayers(layers);
 			}
+
 			return layers;
 		}
 

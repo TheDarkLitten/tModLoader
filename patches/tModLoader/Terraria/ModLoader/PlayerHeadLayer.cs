@@ -1,5 +1,4 @@
-﻿using System;
-using Terraria.DataStructures;
+﻿using Terraria.DataStructures;
 using static Terraria.DataStructures.PlayerDrawHeadLayers;
 
 namespace Terraria.ModLoader

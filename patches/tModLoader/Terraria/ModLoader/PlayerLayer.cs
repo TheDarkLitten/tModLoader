@@ -25,7 +25,7 @@ namespace Terraria.ModLoader
 		public static readonly PlayerLayer WebbedDebuffBack = CreateVanillaLayer(nameof(WebbedDebuffBack), DrawPlayer_06_WebbedDebuffBack);
 		public static readonly PlayerLayer LeinforsHairShampoo = CreateVanillaLayer(nameof(LeinforsHairShampoo), DrawPlayer_07_LeinforsHairShampoo);
 		public static readonly PlayerLayer Backpacks = CreateVanillaLayer(nameof(Backpacks), DrawPlayer_08_Backpacks);
-		public static readonly PlayerLayer BackAccessory = CreateVanillaLayer(nameof(BackAccessory), DrawPlayer_09_BackAc);
+		public static readonly PlayerLayer BackAcc = CreateVanillaLayer(nameof(BackAcc), DrawPlayer_09_BackAc);
 		public static readonly PlayerLayer Wings = CreateVanillaLayer(nameof(Wings), DrawPlayer_10_Wings);
 		public static readonly PlayerLayer Balloons = CreateVanillaLayer(nameof(Balloons), DrawPlayer_11_Balloons);
 		public static readonly PlayerLayer HeldItem = CreateVanillaLayer(nameof(HeldItem), DrawPlayer_27_HeldItem);

@@ -84,7 +84,7 @@
 +				PlayerLayer.LeinforsHairShampoo,
 +				PlayerLayer.TorsoUnindent, //}
 +				PlayerLayer.Backpacks,
-+				PlayerLayer.BackAccessory,
++				PlayerLayer.BackAcc,
 +				PlayerLayer.Wings,
 +				PlayerLayer.Balloons,
 +			};

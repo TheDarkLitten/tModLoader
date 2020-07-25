@@ -69,11 +69,11 @@
 +
 +			var layers = new List<PlayerLayer> {
 +				PlayerLayer.TorsoIndent, //{
-+				PlayerLayer.BackHair,
++				PlayerLayer.HairBack,
 +				PlayerLayer.JimsClock,
-+				PlayerLayer.BackHead,
++				PlayerLayer.HeadBack,
 +				PlayerLayer.TorsoUnindent, //}
-+				PlayerLayer.MountBehindPlayer,
++				PlayerLayer.MountBack,
 +				PlayerLayer.Carpet,
 +				PlayerLayer.PortableStool,
 +				PlayerLayer.TorsoIndent, //{
@@ -86,7 +86,7 @@
 +				PlayerLayer.Backpacks,
 +				PlayerLayer.BackAcc,
 +				PlayerLayer.Wings,
-+				PlayerLayer.Balloons,
++				PlayerLayer.BalloonAcc,
 +			};
 +
  			if (drawinfo.weaponDrawOrder == WeaponDrawOrder.BehindBackArm)
@@ -156,7 +156,7 @@
 -			PlayerDrawLayers.DrawPlayer_30_BladedGlove(ref drawinfo);
 -			PlayerDrawLayers.DrawPlayer_extra_TorsoMinus(ref drawinfo);
 +			layers.Add(PlayerLayer.ArmOverItem);
-+			layers.Add(PlayerLayer.OnhandAcc);
++			layers.Add(PlayerLayer.HandOnAcc);
 +			layers.Add(PlayerLayer.BladedGlove);
 +			layers.Add(PlayerLayer.TorsoUnindent); //}
  			if (!drawinfo.drawFrontAccInNeckAccLayer)

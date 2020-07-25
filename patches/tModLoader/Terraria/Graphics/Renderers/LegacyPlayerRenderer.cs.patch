@@ -70,7 +70,7 @@
 +			var layers = new List<PlayerLayer> {
 +				PlayerLayer.TorsoIndent, //{
 +				PlayerLayer.HairBack,
-+				PlayerLayer.JimsClock,
++				PlayerLayer.JimsCloak,
 +				PlayerLayer.HeadBack,
 +				PlayerLayer.TorsoUnindent, //}
 +				PlayerLayer.MountBack,

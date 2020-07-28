@@ -298,7 +298,7 @@ namespace Terraria.ModLoader.Default.Developer
 					data.shader = ShaderId.Value;
 				}
 
-				throw new NotImplementedException(); //TODO: Reimplement //Main.playerDrawData.Add(data);
+				drawInfo.DrawDataCache.Add(data);
 			});
 		}
 	}

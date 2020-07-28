@@ -164,7 +164,7 @@ namespace Terraria.ModLoader.Default.Developer.Jofairden
 					data.shader = ShaderId.Value;
 				}
 
-				throw new NotImplementedException(); //TODO: Reimplement //Main.playerDrawData.Add(data);
+				drawInfo.DrawDataCache.Add(data);
 			});
 		}
 	}

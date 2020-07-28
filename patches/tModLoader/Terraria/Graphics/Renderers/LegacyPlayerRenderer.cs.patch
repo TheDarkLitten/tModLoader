@@ -43,7 +43,7 @@
  			CreateOutlines(alpha, scale, borderColor);
  			PlayerDrawHeadLayers.DrawPlayer_RenderAllLayers(ref drawinfo);
  		}
-@@ -116,78 +_,82 @@
+@@ -116,78 +_,89 @@
  			_dust.Clear();
  			_gore.Clear();
  			drawinfo.BoringSetup(drawPlayer, _drawData, _dust, _gore, position, shadow, rotation, rotationOrigin);
@@ -165,20 +165,28 @@
  
  			if (drawinfo.weaponDrawOrder == WeaponDrawOrder.OverFrontArm)
 -				PlayerDrawLayers.DrawPlayer_27_HeldItem(ref drawinfo);
-+				layers.Add(PlayerLayer.HeldItem);
- 
+-
 -			PlayerDrawLayers.DrawPlayer_31_ProjectileOverArm(ref drawinfo);
 -			PlayerDrawLayers.DrawPlayer_33_FrozenOrWebbedDebuff(ref drawinfo);
 -			PlayerDrawLayers.DrawPlayer_34_ElectrifiedDebuffFront(ref drawinfo);
 -			PlayerDrawLayers.DrawPlayer_35_IceBarrier(ref drawinfo);
 -			PlayerDrawLayers.DrawPlayer_36_CTG(ref drawinfo);
 -			PlayerDrawLayers.DrawPlayer_37_BeetleBuff(ref drawinfo);
++				layers.Add(PlayerLayer.HeldItem);
++
 +			layers.Add(PlayerLayer.ProjectileOverArm);
 +			layers.Add(PlayerLayer.FrozenOrWebbedDebuff);
 +			layers.Add(PlayerLayer.ElectrifiedDebuffFront);
 +			layers.Add(PlayerLayer.IceBarrier);
 +			layers.Add(PlayerLayer.CaptureTheGem);
 +			layers.Add(PlayerLayer.BeetleBuff);
++
++			PlayerHooks.ModifyDrawLayers(drawPlayer, layers);
++
++			foreach (var layer in layers) {
++				layer.Draw(ref drawinfo);
++			}
++
  			PlayerDrawLayers.DrawPlayer_MakeIntoFirstFractalAfterImage(ref drawinfo);
  			PlayerDrawLayers.DrawPlayer_TransformDrawData(ref drawinfo);
  			if (scale != 1f)

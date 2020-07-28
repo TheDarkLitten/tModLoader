@@ -59,10 +59,11 @@ namespace Terraria.ModLoader.Default
 			AddContent<UnloadedTilesWorld>();
 			AddContent<HelpCommand>();
 			AddContent<ModlistCommand>();
-			/*AddPatronSets();
-			AddPlayer("PatronModPlayer", new PatronModPlayer());
+
+			AddPatronSets();
+			AddContent<PatronModPlayer>();
 			AddDeveloperSets();
-			AddPlayer("DeveloperPlayer", new DeveloperPlayer());*/
+			AddContent<DeveloperPlayer>();
 		}
 
 		public override void Unload() {

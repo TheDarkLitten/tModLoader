@@ -172,15 +172,15 @@ namespace Terraria.ModLoader.Default.Developer
 		public static DrawDataInfo GetHeadDrawDataInfo(PlayerDrawSet drawInfo, Texture2D texture) {
 			Player drawPlayer = drawInfo.drawPlayer;
 			Vector2 pos = new Vector2(
-							  (int)(drawInfo.position.X + drawPlayer.width / 2f - drawPlayer.bodyFrame.Width / 2f - Main.screenPosition.X),
-							  (int)(drawInfo.position.Y + drawPlayer.height - drawPlayer.bodyFrame.Height + 4f - Main.screenPosition.Y))
+							  (int)(drawInfo.Position.X + drawPlayer.width / 2f - drawPlayer.bodyFrame.Width / 2f - Main.screenPosition.X),
+							  (int)(drawInfo.Position.Y + drawPlayer.height - drawPlayer.bodyFrame.Height + 4f - Main.screenPosition.Y))
 						  + drawPlayer.headPosition
-						  + drawInfo.headOrigin;
+						  + drawInfo.headVect;
 
 			return new DrawDataInfo {
 				Position = pos,
 				Frame = drawPlayer.bodyFrame,
-				Origin = drawInfo.headOrigin,
+				Origin = drawInfo.headVect,
 				Rotation = drawPlayer.headRotation,
 				Texture = texture
 			};
@@ -189,15 +189,15 @@ namespace Terraria.ModLoader.Default.Developer
 		public static DrawDataInfo GetBodyDrawDataInfo(PlayerDrawSet drawInfo, Texture2D texture) {
 			Player drawPlayer = drawInfo.drawPlayer;
 			Vector2 pos = new Vector2(
-							  (int)(drawInfo.position.X - Main.screenPosition.X - drawPlayer.bodyFrame.Width / 2f + drawPlayer.width / 2f),
-							  (int)(drawInfo.position.Y - Main.screenPosition.Y + drawPlayer.height - drawPlayer.bodyFrame.Height + 4f))
+							  (int)(drawInfo.Position.X - Main.screenPosition.X - drawPlayer.bodyFrame.Width / 2f + drawPlayer.width / 2f),
+							  (int)(drawInfo.Position.Y - Main.screenPosition.Y + drawPlayer.height - drawPlayer.bodyFrame.Height + 4f))
 						  + drawPlayer.bodyPosition
-						  + drawInfo.bodyOrigin;
+						  + drawInfo.bodyVect;
 
 			return new DrawDataInfo {
 				Position = pos,
 				Frame = drawPlayer.bodyFrame,
-				Origin = drawInfo.bodyOrigin,
+				Origin = drawInfo.bodyVect,
 				Rotation = drawPlayer.bodyRotation,
 				Texture = texture
 			};
@@ -206,15 +206,15 @@ namespace Terraria.ModLoader.Default.Developer
 		public static DrawDataInfo GetLegDrawDataInfo(PlayerDrawSet drawInfo, Texture2D texture) {
 			Player drawPlayer = drawInfo.drawPlayer;
 			Vector2 pos = new Vector2(
-							  (int)(drawInfo.position.X - Main.screenPosition.X - drawPlayer.legFrame.Width / 2f + drawPlayer.width / 2f),
-							  (int)(drawInfo.position.Y - Main.screenPosition.Y + drawPlayer.height - drawPlayer.legFrame.Height + 4f))
+							  (int)(drawInfo.bodyVect.X - Main.screenPosition.X - drawPlayer.legFrame.Width / 2f + drawPlayer.width / 2f),
+							  (int)(drawInfo.bodyVect.Y - Main.screenPosition.Y + drawPlayer.height - drawPlayer.legFrame.Height + 4f))
 						  + drawPlayer.legPosition
-						  + drawInfo.legOrigin;
+						  + drawInfo.legVect;
 
 			return new DrawDataInfo {
 				Position = pos,
 				Frame = drawPlayer.legFrame,
-				Origin = drawInfo.legOrigin,
+				Origin = drawInfo.legVect,
 				Rotation = drawPlayer.legRotation,
 				Texture = texture
 			};

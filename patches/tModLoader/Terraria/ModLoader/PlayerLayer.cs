@@ -30,7 +30,7 @@ namespace Terraria.ModLoader
 		/// <summary> Draws Jim's Cloak, if the player is wearing Jim's Leggings (a developer item). </summary>
 		public static readonly PlayerLayer JimsCloak = CreateVanillaLayer(nameof(JimsCloak), DrawPlayer_01_2_JimsCloak);
 
-		/// <summary> Draws the back textures of the player's headgear. </summary>
+		/// <summary> Draws the back textures of the player's head, including armor. </summary>
 		public static readonly PlayerLayer HeadBack = CreateVanillaLayer(nameof(HeadBack), DrawPlayer_01_3_BackHead);
 
 		/// <summary> Draws the back textures of the player's mount. </summary>
@@ -99,7 +99,7 @@ namespace Terraria.ModLoader
 		/// <summary> Draws the player's neck accessory. </summary>
 		public static readonly PlayerLayer NeckAcc = CreateVanillaLayer(nameof(NeckAcc), DrawPlayer_20_NeckAcc);
 
-		/// <summary> Draws the player's head armor. </summary>
+		/// <summary> Draws the player's head, including hair, armor, and etc. </summary>
 		public static readonly PlayerLayer Head = CreateVanillaLayer(nameof(Head), DrawPlayer_21_Head);
 
 		/// <summary> Draws the player's face accessory. </summary>

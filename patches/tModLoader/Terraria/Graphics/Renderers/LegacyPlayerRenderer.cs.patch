@@ -43,7 +43,7 @@
  			CreateOutlines(alpha, scale, borderColor);
  			PlayerDrawHeadLayers.DrawPlayer_RenderAllLayers(ref drawinfo);
  		}
-@@ -116,78 +_,89 @@
+@@ -116,78 +_,90 @@
  			_dust.Clear();
  			_gore.Clear();
  			drawinfo.BoringSetup(drawPlayer, _drawData, _dust, _gore, position, shadow, rotation, rotationOrigin);
@@ -181,6 +181,7 @@
 +			layers.Add(PlayerLayer.CaptureTheGem);
 +			layers.Add(PlayerLayer.BeetleBuff);
 +
++			PlayerLayerHooks.ModifyDrawLayers(drawPlayer, layers);
 +			PlayerHooks.ModifyDrawLayers(drawPlayer, layers);
 +
 +			foreach (var layer in layers) {

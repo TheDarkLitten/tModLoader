@@ -3,10 +3,9 @@ using static Terraria.DataStructures.PlayerDrawHeadLayers;
 
 namespace Terraria.ModLoader
 {
-	/// <summary>
-	/// This class represents a DrawLayer for the player's map icon, and uses PlayerDrawHeadInfo as its InfoType. Drawing should be done directly through drawInfo.spriteBatch.
-	/// </summary>
-	public class PlayerHeadLayer : DrawLayer<PlayerDrawHeadSet>
+	/// <summary> This class represents a DrawLayer for the player's map icon, and uses PlayerDrawHeadInfo as its InfoType. Drawing should be done directly through drawInfo.spriteBatch. </summary>
+	[Autoload]
+	public abstract class PlayerHeadLayer : DrawLayer<PlayerDrawHeadSet>
 	{
 		/// <summary> Draws the back textures of the player's headgear. </summary>
 		public static readonly PlayerHeadLayer BackHelmet = CreateVanillaLayer(nameof(BackHelmet), DrawPlayer_00_BackHelmet);
@@ -35,18 +34,10 @@ namespace Terraria.ModLoader
 		/// <summary> Draws the player's face accessories, if they have any. </summary>
 		public static readonly PlayerHeadLayer FaceAcc = CreateVanillaLayer(nameof(FaceAcc), DrawPlayer_08_FaceAcc);
 
-		/// <summary>
-		/// Creates a PlayerHeadLayer with the given mod name, identifier name, and drawing action.
-		/// </summary>
-		public PlayerHeadLayer(string mod, string name, LayerFunction layer) : base(mod, name, layer) {
+		protected override void Register() {
+
 		}
 
-		/// <summary>
-		/// Creates a PlayerHeadLayer with the given mod name, identifier name, parent layer, and drawing action.
-		/// </summary>
-		public PlayerHeadLayer(string mod, string name, PlayerHeadLayer parent, LayerFunction layer) : base(mod, name, parent, layer) {
-		}
-
-		private static PlayerHeadLayer CreateVanillaLayer(string name, LayerFunction layer) => new PlayerHeadLayer("Terraria", name, layer);
+		private static PlayerHeadLayer CreateVanillaLayer(string name, LayerFunction layer) => new LegacyPlayerHeadLayer(null, name, layer);
 	}
 }

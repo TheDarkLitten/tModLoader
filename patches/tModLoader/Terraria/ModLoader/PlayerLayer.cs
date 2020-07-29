@@ -1,4 +1,5 @@
-﻿using Terraria.DataStructures;
+﻿using System.Collections.Generic;
+using Terraria.DataStructures;
 using static Terraria.DataStructures.PlayerDrawLayers;
 
 namespace Terraria.ModLoader
@@ -6,7 +7,8 @@ namespace Terraria.ModLoader
 	/// <summary>
 	/// This class represents a DrawLayer for the player, and uses PlayerDrawInfo as its InfoType. Drawing should be done by adding Terraria.DataStructures.DrawData objects to Main.playerDrawData.
 	/// </summary>
-	public class PlayerLayer : DrawLayer<PlayerDrawSet>
+	[Autoload]
+	public abstract class PlayerLayer : DrawLayer<PlayerDrawSet>
 	{
 		//Technical layers
 
@@ -147,20 +149,14 @@ namespace Terraria.ModLoader
 		/// <summary> Draws the effects of Beetle Armor's Set buffs, if the player currently has any. </summary>
 		public static readonly PlayerLayer BeetleBuff = CreateVanillaLayer(nameof(BeetleBuff), DrawPlayer_37_BeetleBuff);
 
-		/// <summary>
-		/// Creates a PlayerLayer with the given mod name, identifier name, and drawing action.
-		/// </summary>
-		public PlayerLayer(string mod, string name, LayerFunction layer)
-			: base(mod, name, layer) {
-		}
+		/// <summary> Used for automatically setting up the layer. </summary>
+		/// <param name="drawPlayer"> The player that's currently being drawn. </param>
+		/// <param name="layers"> A readonly list of to-be-rendered vanilla layers. </param>
+		/// <param name="index"> The index that this layer should be added at. <para/> Ignoring or setting this to values outside the [0..layers.Count] range will result in the layer not being added. </param>
+		public abstract void Setup(Player drawPlayer, IReadOnlyList<PlayerLayer> layers, ref int index);
 
-		/// <summary>
-		/// Creates a PlayerLayer with the given mod name, identifier name, parent layer, and drawing action.
-		/// </summary>
-		public PlayerLayer(string mod, string name, PlayerLayer parent, LayerFunction layer)
-			: base(mod, name, parent, layer) {
-		}
+		protected override void Register() => PlayerLayerHooks.Add(this);
 
-		private static PlayerLayer CreateVanillaLayer(string name, LayerFunction layer) => new PlayerLayer("Terraria", name, layer);
+		private static PlayerLayer CreateVanillaLayer(string name, LayerFunction layer) => new LegacyPlayerLayer(null, name, layer);
 	}
 }

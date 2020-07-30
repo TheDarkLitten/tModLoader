@@ -72,8 +72,8 @@ namespace Terraria.ModLoader.Default.Developer.Jofairden
 		public static DrawDataInfo GetLegDrawDataInfo(PlayerDrawSet drawInfo, Texture2D texture) {
 			Player drawPlayer = drawInfo.drawPlayer;
 			Vector2 pos = new Vector2(
-							  (int)(drawInfo.bodyVect.X - Main.screenPosition.X - drawPlayer.legFrame.Width / 2f + drawPlayer.width / 2f),
-							  (int)(drawInfo.bodyVect.Y - Main.screenPosition.Y + drawPlayer.height - drawPlayer.legFrame.Height + 4f))
+							  (int)(drawInfo.Position.X - Main.screenPosition.X - drawPlayer.legFrame.Width / 2f + drawPlayer.width / 2f),
+							  (int)(drawInfo.Position.Y - Main.screenPosition.Y + drawPlayer.height - drawPlayer.legFrame.Height + 4f))
 						  + drawPlayer.legPosition
 						  + drawInfo.legVect;
 

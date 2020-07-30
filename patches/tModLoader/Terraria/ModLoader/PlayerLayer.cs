@@ -149,11 +149,10 @@ namespace Terraria.ModLoader
 		/// <summary> Draws the effects of Beetle Armor's Set buffs, if the player currently has any. </summary>
 		public static readonly PlayerLayer BeetleBuff = CreateVanillaLayer(nameof(BeetleBuff), DrawPlayer_37_BeetleBuff);
 
-		/// <summary> Used for automatically setting up the layer. </summary>
+		/// <summary> Used for automatically setting up the layer every time a player is drawn. Set <see cref="DrawLayer.depth"/>, and return whether or not you want the layer to be added at this moment in time. </summary>
 		/// <param name="drawPlayer"> The player that's currently being drawn. </param>
-		/// <param name="layers"> A readonly list of to-be-rendered vanilla layers. </param>
-		/// <param name="index"> The index that this layer should be added at. <para/> Ignoring or setting this to values outside the [0..layers.Count] range will result in the layer not being added. </param>
-		public abstract void Setup(Player drawPlayer, IReadOnlyList<PlayerLayer> layers, ref int index);
+		/// <param name="vanillaLayers"> A readonly list of to-be-rendered vanilla layers. </param>
+		public abstract bool Setup(Player drawPlayer, IReadOnlyList<PlayerLayer> vanillaLayers);
 
 		protected override void Register() => PlayerLayerHooks.Add(this);
 

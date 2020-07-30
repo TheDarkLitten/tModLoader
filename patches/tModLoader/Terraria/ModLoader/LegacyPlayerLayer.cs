@@ -26,8 +26,7 @@ namespace Terraria.ModLoader
 			Parent = parent;
 		}
 
-		public override void Setup(Player drawPlayer, IReadOnlyList<PlayerLayer> layers, ref int index) {
-		}
+		public override bool Setup(Player drawPlayer, IReadOnlyList<PlayerLayer> vanillaLayers) => false;
 
 		public override void Draw(ref PlayerDrawSet drawInfo) => Layer(ref drawInfo);
 	}

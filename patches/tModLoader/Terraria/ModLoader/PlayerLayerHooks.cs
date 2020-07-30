@@ -1,26 +1,27 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace Terraria.ModLoader
 {
 	public static class PlayerLayerHooks
 	{
-		internal static readonly IList<PlayerLayer> layers = new List<PlayerLayer>();
+		internal static readonly IList<PlayerLayer> ModLayers = new List<PlayerLayer>();
 
-		internal static void Add(PlayerLayer layer) => layers.Add(layer);
+		internal static void Add(PlayerLayer layer) => ModLayers.Add(layer);
 
-		internal static void Unload() => layers.Clear();
+		internal static void Unload() => ModLayers.Clear();
 
-		public static void ModifyDrawLayers(Player drawPlayer, List<PlayerLayer> layerList) {
-			var readonlyList = layerList.ToList().AsReadOnly(); //Duplicates the list.
+		public static void ModifyDrawLayers(Player drawPlayer, Dictionary<string, List<PlayerLayer>> layers, IReadOnlyList<PlayerLayer> vanillaLayers) {
+			foreach (var layer in ModLayers) {
+				layer.depth = 0f;
 
-			foreach (var layer in layers) {
-				int index = -1;
+				if (layer.Setup(drawPlayer, vanillaLayers)) {
+					string modName = layer.Mod.Name;
 
-				layer.Setup(drawPlayer, readonlyList, ref index);
+					if (!layers.TryGetValue(modName, out var list)) {
+						layers[modName] = list = new List<PlayerLayer>();
+					}
 
-				if (index >= 0 && index <= layerList.Count) {
-					layerList.Insert(index, layer);
+					list.Add(layer);
 				}
 			}
 		}

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace Terraria.ModLoader
@@ -15,6 +14,9 @@ namespace Terraria.ModLoader
 
 		/// <summary> Whether or not this DrawLayer should be drawn. For vanilla layers, this will be set to true before all drawing-related hooks are called. For modded layers, you must set this to true or false yourself. </summary>
 		public bool visible = true;
+
+		/// <summary> This layer's depth. Determines the order in which layers will appear. </summary>
+		public float depth;
 
 		protected DrawLayer() {
 		}
@@ -40,15 +42,7 @@ namespace Terraria.ModLoader
 			return true;
 		}
 
-		/// <summary> Invokes this DrawLayer's layer action. </summary>
+		/// <summary> Draws this layer. </summary>
 		public abstract void Draw(ref InfoType drawInfo);
-
-		/// <summary> Creates a new DrawLayer instance. </summary>
-		public static T Create<T, TInfoType>(Mod mod, DrawLayer<TInfoType> parent) where T : DrawLayer<TInfoType>, new() {
-			return new T() {
-				Mod = mod,
-				Parent = parent
-			};
-		}
 	}
 }

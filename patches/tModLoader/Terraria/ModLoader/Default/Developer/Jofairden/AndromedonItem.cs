@@ -16,6 +16,8 @@ namespace Terraria.ModLoader.Default.Developer.Jofairden
 
 		private static int? ShaderId;
 
+		public override string Texture => $"ModLoader/Developer.Jofairden.{SetName}_{EquipTypeSuffix}";
+
 		public sealed override void SetStaticDefaults() {
 			DisplayName.SetDefault($"Andromedon {EquipTypeSuffix}");
 			Tooltip.SetDefault("The power of the Andromedon flows within you");

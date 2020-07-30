@@ -118,19 +118,6 @@ namespace Terraria.ModLoader.Default
 			AddEquipTexture(item, equipType, item.Texture + '_' + equipType);
 		}
 
-		internal static Texture2D ReadTexture(string file) {
-			Assembly assembly = Assembly.GetExecutingAssembly();
-			// if someone set the type or name wrong, the stream will be null.
-			Stream stream = assembly.GetManifestResourceStream("Terraria.ModLoader.Default." + file + ".png");
-
-			// [sanity check, makes it easier to know what's wrong]
-			if (stream == null) {
-				throw new ArgumentException("Given EquipType for PatreonItem or name is not valid. It is possible either does not match up with the classname. If you added a new EquipType, modify GetEquipTypeSuffix() and AddPatreonItemAndEquipType() first.");
-			}
-
-			return Texture2D.FromStream(Main.instance.GraphicsDevice, stream);
-		}
-
 		internal static bool TryGettingPatreonOrDevArmor(Player player) {
 			if (Main.rand.NextBool(ChanceToGetPatreonArmor)) {
 				int randomIndex = Main.rand.Next(PatronSets.Length);
